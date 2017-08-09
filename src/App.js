@@ -12,7 +12,6 @@ class App extends Component {
           individuals={this.props.individuals}
           businesses={this.props.businesses}
         />
-        <Search />
       </div>
     );
   }

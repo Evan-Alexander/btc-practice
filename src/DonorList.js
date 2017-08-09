@@ -7,9 +7,9 @@ class DonorList extends React.Component {
     this.state = {
       business: [],
       individual: [],
-      sortAscending: false
+      isChecked: false
     };
-    this.handleSortInput = this.handleSortInput.bind(this);
+    this.handleCheckBox = this.handleCheckBox.bind(this);
   }
   componentDidMount() {
      fetch('http://54.213.83.132/hackoregon/http/oregon_business_contributors/5/').then(response => {
@@ -29,10 +29,9 @@ class DonorList extends React.Component {
      })
    })
   }
-  handleSortInput(sortAscending) {
-    alert("this did a thing");
+  handleCheckBox() {
     this.setState({
-      sortAscending: sortAscending
+      isChecked: !this.state.isChecked
     })
   }
   render() {
@@ -46,8 +45,8 @@ class DonorList extends React.Component {
 
           <Donors list={this.state.individual} />
           <Search
-            sortAscending={this.state.sortAscending}
-            onSortChange={this.handleSortInput}/>
+            isChecked={this.state.isChecked}
+            onChange={this.handleCheckBox}/>
       </div>
 
     )
