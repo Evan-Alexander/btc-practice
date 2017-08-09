@@ -1,6 +1,5 @@
 import React from 'react';
 import Donors from './Donors';
-import Search from './Search';
 class DonorList extends React.Component {
   constructor(props) {
     super(props);
@@ -14,10 +13,10 @@ class DonorList extends React.Component {
   componentDidMount() {
      fetch('http://54.213.83.132/hackoregon/http/oregon_business_contributors/5/').then(response => {
       return response.json();
-    }).then(jsonData => {
-      console.log(jsonData);
+    }).then(businessData => {
+      console.log(businessData);
       this.setState({
-        business: jsonData
+        business: businessData
       })
     })
     fetch('http://54.213.83.132/hackoregon/http/oregon_individual_contributors/5/').then(response => {
@@ -34,7 +33,11 @@ class DonorList extends React.Component {
       isChecked: !this.state.isChecked
     })
   }
+
   render() {
+    const { businessData, individualData } = this.state;
+    let sortedContent = this.state.isChecked ?
+    <div>STUFF!</div> : null;
     return(
       <div>
         <h3>Businesses</h3>
@@ -44,9 +47,17 @@ class DonorList extends React.Component {
         <h3>Individuals</h3>
 
           <Donors list={this.state.individual} />
-          <Search
-            isChecked={this.state.isChecked}
-            onChange={this.handleCheckBox}/>
+          <form>
+            <p>
+              <input
+                type="checkbox"
+                onChange ={this.handleCheckBox}
+              />
+                {' '}
+                Sort by ascending contributors
+            </p>
+          </form>
+            { sortedContent }
       </div>
 
     )

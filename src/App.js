@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import DonorList from './DonorList';
-import Search from './Search';
 import './App.css';
 
 class App extends Component {
