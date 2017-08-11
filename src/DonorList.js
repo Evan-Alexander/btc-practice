@@ -10,11 +10,12 @@ class DonorList extends React.Component {
     };
     this.handleCheckBox = this.handleCheckBox.bind(this);
   }
+  // API CALL
   componentDidMount() {
      fetch('http://54.213.83.132/hackoregon/http/oregon_business_contributors/5/').then(response => {
       return response.json();
     }).then(businessData => {
-      console.log(businessData);
+      // console.log(businessData);
       this.setState({
         business: businessData
       })
@@ -22,12 +23,16 @@ class DonorList extends React.Component {
     fetch('http://54.213.83.132/hackoregon/http/oregon_individual_contributors/5/').then(response => {
      return response.json();
    }).then(individualData => {
-     console.log(individualData);
+    //  console.log(individualData);
      this.setState({
        individual: individualData
      })
    })
   }
+  // END API CALL
+  // let sortedContent = this.state.isChecked ?
+  // <div>STUFF!</div> : null;
+  //TOGGLE CHECKBOX TRUE VS. FALSE
   handleCheckBox() {
     this.setState({
       isChecked: !this.state.isChecked
@@ -35,9 +40,18 @@ class DonorList extends React.Component {
   }
 
   render() {
-    const { businessData, individualData } = this.state;
-    let sortedContent = this.state.isChecked ?
-    <div>STUFF!</div> : null;
+
+    let sums = this.state.individual.map((thing, index) => {
+      return thing.sum;
+    });
+    let compareSums = sums.sort(function(a, b) {
+      return a - b;
+    });
+    compareSums = compareSums.join(", ");
+    console.log(compareSums.toString())
+
+
+
     return(
       <div>
         <h3>Businesses</h3>
@@ -45,7 +59,7 @@ class DonorList extends React.Component {
           <Donors list={this.state.business}/>
 
         <h3>Individuals</h3>
-
+          {compareSums}
           <Donors list={this.state.individual} />
           <form>
             <p>
@@ -57,7 +71,6 @@ class DonorList extends React.Component {
                 Sort by ascending contributors
             </p>
           </form>
-            { sortedContent }
       </div>
 
     )
