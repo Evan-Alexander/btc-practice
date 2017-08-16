@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DonorList from './DonorList';
+import StyledComponents from './StyledComponents';
 import './App.css';
 
 class App extends Component {
@@ -11,6 +12,7 @@ class App extends Component {
           individuals={this.props.individuals}
           businesses={this.props.businesses}
         />
+        <StyledComponents />
       </div>
     );
   }
